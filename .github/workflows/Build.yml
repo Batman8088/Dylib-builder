@@ -6,16 +6,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v5
-      - name: Install Theos & Toolchain
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y fakeroot git perl clang-14 lldb-14 lld-14 libc++-14-dev libc++abi-14-dev libz-dev libxml2-dev libssl-dev curl xz-utils
-          git clone --recursive https://github.com $HOME/theos
-          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
-          mkdir -p $HOME/theos/toolchain $HOME/theos/sdks
-          curl -sSL https://github.com | tar -xJ -C $HOME/theos/toolchain/
-          git clone --depth 1 https://github.com /tmp/sdks
-          mv /tmp/sdks/*.sdk $HOME/theos/sdks/
+
+      - name: Setup Theos
+        uses: Randomblock1/theos-action@v1
 
       - name: Build Dylib
         run: make
