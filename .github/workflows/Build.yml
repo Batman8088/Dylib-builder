@@ -1,0 +1,17 @@
+name: Build Dylib
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with Theos
+        uses: theos/build-action@v1
+        with:
+          args: clean package
+      - name: Upload Dylib
+        uses: actions/upload-artifact@v4
+        with:
+          name: FolderPickerHook
+          path: .theos/obj/debug/FolderPickerHook.dylib
