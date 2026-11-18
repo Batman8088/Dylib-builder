@@ -6,10 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build with Theos
-        uses: theos/build-action@v1
-        with:
-          args: clean package
+      - name: Setup Theos
+        uses: beerpiss/theos-action@v1
+      - name: Build Dylib
+        run: make
       - name: Upload Dylib
         uses: actions/upload-artifact@v4
         with:
