@@ -5,11 +5,15 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Build with Theos
-        uses: theos/build-action@v1
-        with:
-          args: clean package
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Theos
+        uses: waruhachi/theos-action@v2.6.6
+
+      - name: Build Dylib
+        run: make clean package
+
       - name: Upload Dylib
         uses: actions/upload-artifact@v4
         with:
