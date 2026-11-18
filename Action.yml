@@ -1,0 +1,2 @@
+- name: Install & Setup Theos
+uses: waruhachi/theos-action@v2.6.6
