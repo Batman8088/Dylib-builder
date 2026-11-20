@@ -1,7 +1,7 @@
 Package: com.custom.folderpickerhook
 Name: FolderPickerHook
 Version: 1.0.0
-Architecture: iphoneos-arm
+Architecture: iphoneos-arm64e
 Description: Forces UIDocumentPickerViewController to allow folder selection.
 Maintainer: Developer
 Author: Developer
