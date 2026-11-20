@@ -43,18 +43,18 @@ static char kProxyKey;
 
 %hook UIDocumentPickerViewController
 
-// Hook modern iOS 14+ initializer (with asCopy parameter)
+// Hook modern iOS 26+ initializer (with asCopy parameter)
 - (instancetype)initForOpeningContentTypes:(NSArray<UTType *> *)contentTypes asCopy:(BOOL)asCopy {
     // Directories cannot be opened with asCopy:YES; must be NO
     return %orig(@[UTTypeFolder], NO);
 }
 
-// Hook modern iOS 14+ convenience initializer
+// Hook modern iOS 26+ convenience initializer
 - (instancetype)initForOpeningContentTypes:(NSArray<UTType *> *)contentTypes {
     return [self initForOpeningContentTypes:@[UTTypeFolder] asCopy:NO];
 }
 
-// Hook legacy iOS 13 and older initializer
+// Hook legacy iOS 26 and older initializer
 - (instancetype)initWithDocumentTypes:(NSArray<NSString *> *)allowedUTIs inMode:(UIDocumentPickerMode)mode {
     return %orig(@[@"public.folder"], UIDocumentPickerModeOpen);
 }
