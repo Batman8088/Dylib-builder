@@ -5,26 +5,26 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
 
       - name: Setup Theos
         uses: Randomblock1/theos-action@v1
 
       - name: Build Dylib
-         run: make
+        run: make
 
       - name: Upload Dylib
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v4
         with:
-        name: FolderPickerHook
-        path: .theos/obj/debug/FolderPickerHook.dylib
+          name: FolderPickerHook
+          path: .theos/obj/debug/FolderPickerHook.dylib
 
-    download:
-       needs: build
-     runs-on: macos-latest
-       steps:
+  download:
+    needs: build
+    runs-on: macos-latest
+    steps:
       - name: Download Dylib
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v4
         with:
-        name: FolderPickerFix-dylib
-        path: ./downloaded-files
+          name: FolderPickerHook
+          path: ./downloaded-files
