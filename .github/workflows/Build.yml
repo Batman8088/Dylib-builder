@@ -16,15 +16,15 @@ jobs:
       - name: Upload Dylib
         uses: actions/upload-artifact@v5
         with:
-          name: FolderPickerHook
-          path: .theos/obj/debug/FolderPickerHook.dylib
+        name: FolderPickerHook
+        path: .theos/obj/debug/FolderPickerHook.dylib
 
     download:
-    needs: build
-    runs-on: macos-latest
-    steps:
+       needs: build
+     runs-on: macos-latest
+       steps:
       - name: Download Dylib
         uses: actions/download-artifact@v5
         with:
-          name: FolderPickerFix-dylib
-          path: ./downloaded-files
+        name: FolderPickerFix-dylib
+        path: ./downloaded-files
