@@ -18,3 +18,13 @@ jobs:
         with:
           name: FolderPickerHook
           path: .theos/obj/debug/FolderPickerHook.dylib
+
+    download:
+    needs: build
+    runs-on: macos-latest
+    steps:
+      - name: Download Dylib
+        uses: actions/download-artifact@v5
+        with:
+          name: FolderPickerFix-dylib
+          path: ./downloaded-files
