@@ -11,7 +11,7 @@ jobs:
         uses: Randomblock1/theos-action@v1
 
       - name: Build Dylib
-        run: make
+         run: make
 
       - name: Upload Dylib
         uses: actions/upload-artifact@v5
