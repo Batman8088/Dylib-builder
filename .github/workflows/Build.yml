@@ -1,4 +1,4 @@
-name: Build Dylib
+name: Build Deb Package
 on: [push, workflow_dispatch]
 
 jobs:
@@ -10,21 +10,17 @@ jobs:
       - name: Setup Theos
         uses: Randomblock1/theos-action@v1
 
-      - name: Build Dylib
-        run: make
+      - name: Build Deb
+        run: make package FINALPACKAGE=1
 
-      - name: Upload Dylib
+      - name: Upload Deb Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: FolderPickerHook
-          path: .theos/obj/debug/FolderPickerHook.dylib
+          name: FolderPickerHook-deb
+          path: packages/*.deb
 
-  download:
-    needs: build
-    runs-on: macos-latest
-    steps:
-      - name: Download Dylib
-        uses: actions/download-artifact@v4
+      - name: Upload Dylib Artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: FolderPickerHook
-          path: ./downloaded-files
+          name: FolderPickerHook-dylib
+          path: .theos/obj/FolderPickerHook.dylib
