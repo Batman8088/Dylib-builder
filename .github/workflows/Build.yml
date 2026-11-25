@@ -1,26 +1,48 @@
-name: Build Deb Package
-on: [push, workflow_dispatch]
+name: Build Deb and APT Repo
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install Packaging Tools
+        run: sudo apt-get update && sudo apt-get install -y dpkg-dev fakeroot bzip2 gzip
 
       - name: Setup Theos
         uses: Randomblock1/theos-action@v1
 
       - name: Build Deb
-        run: make package FINALPACKAGE=1
+        run: |
+          MAKEFILE_DIR=$(dirname "$(find . -maxdepth 3 -name 'Makefile' | head -n 1)")
+          cd "$MAKEFILE_DIR"
+          make package FINALPACKAGE=1
+
+      - name: Generate APT Repo Structure
+        run: |
+          mkdir -p repo/debs
+          find . -path "*/packages/*.deb" -exec cp {} repo/debs/ \;
+          if [ -f Release ]; then cp Release repo/; fi
+          cd repo
+          dpkg-scanpackages -m debs /dev/null > Packages
+          bzip2 -c9 Packages > Packages.bz2
+          gzip -c9 Packages > Packages.gz
 
       - name: Upload Deb Artifact
         uses: actions/upload-artifact@v4
         with:
           name: FolderPickerHook-deb
-          path: packages/*.deb
+          path: repo/debs/*.deb
 
-      - name: Upload Dylib Artifact
-        uses: actions/upload-artifact@v4
+      - name: Deploy APT Repo to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: FolderPickerHook-dylib
-          path: .theos/obj/FolderPickerHook.dylib
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./repo
