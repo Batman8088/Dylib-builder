@@ -1,12 +1,11 @@
-TARGET := iphone:clang:latest:23.1.6
-ARCHS := arm64e
+TARGET := iphone:clang:latest:16.0
+INSTALL_TARGET_PROCESSES = SpringBoard
 
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = FolderPickerHook
-
-FolderPickerHook_FILES = Tweak.x
-FolderPickerHook_CFLAGS = -fobjc-arc -Wno-deprecated-declarations
-FolderPickerHook_FRAMEWORKS = UIKit UniformTypeIdentifiers
+FolderPickerFix_FILES = Tweak.x
+FolderPickerFix_FRAMEWORKS = UIKit UniformTypeIdentifiers
+FolderPickerFix_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk
