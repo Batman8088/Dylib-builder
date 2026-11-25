@@ -1,0 +1,15 @@
+Package: com.custom.folderpickerhook
+Version: 1.0.0
+Architecture: iphoneos-arm64e
+Maintainer: Developer
+Installed-Size: 88
+Filename: debs/com.custom.folderpickerhook_1.0.0_iphoneos-arm64e.deb
+Size: 4792
+MD5sum: a701eacae6b8ad83375244708adefec7
+SHA1: 5d00daa05ce38fd59aa2ddb8c1625c39c2227290
+SHA256: 8504bf0e4831eb0c66539d474923500e9226814484558154124fbdd855811b32
+Section: Tweaks
+Description: Forces UIDocumentPickerViewController to allow folder selection.
+Author: Developer
+Name: FolderPickerHook
+
